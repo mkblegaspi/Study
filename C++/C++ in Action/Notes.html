@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-28 Wed 15:20 -->
+<!-- 2024-02-28 Wed 16:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -200,11 +200,11 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7e03fc2">1. C++ in Action</a>
+<li><a href="#orgbda9b56">1. C++ in Action</a>
 <ul>
-<li><a href="#orgcda0828">1.1. Language</a>
+<li><a href="#org1a40e1b">1.1. Language</a>
 <ul>
-<li><a href="#orge472e56">1.1.1. Objects and Scopes</a></li>
+<li><a href="#orga4e567a">1.1.1. Objects and Scopes</a></li>
 </ul>
 </li>
 </ul>
@@ -212,20 +212,20 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org7e03fc2" class="outline-2">
-<h2 id="org7e03fc2"><span class="section-number-2">1.</span> C++ in Action</h2>
+<div id="outline-container-orgbda9b56" class="outline-2">
+<h2 id="orgbda9b56"><span class="section-number-2">1.</span> C++ in Action</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgcda0828" class="outline-3">
-<h3 id="orgcda0828"><span class="section-number-3">1.1.</span> Language</h3>
+<div id="outline-container-org1a40e1b" class="outline-3">
+<h3 id="org1a40e1b"><span class="section-number-3">1.1.</span> Language</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-orge472e56" class="outline-4">
-<h4 id="orge472e56"><span class="section-number-4">1.1.1.</span> Objects and Scopes</h4>
+<div id="outline-container-orga4e567a" class="outline-4">
+<h4 id="orga4e567a"><span class="section-number-4">1.1.1.</span> Objects and Scopes</h4>
 <div class="outline-text-4" id="text-1-1-1">
 </div>
 <ol class="org-ol">
-<li><a id="org80e481a"></a>Global Scope<br />
+<li><a id="org02c7b23"></a>Global Scope<br />
 <div class="outline-text-5" id="text-1-1-1-1">
 <ul class="org-ul">
 <li>Class definition</li>
@@ -240,21 +240,28 @@
 
 <div class="org-src-container">
 <pre class="src src-c++">// Include statement
-#include &lt;iostream&gt;
-
+#include &lt;iostream&gt; // Tells the compiler to find the file iostream and include it.
+//           |
+//           ----&gt; part of the standard C++ library, not part of the language.
 // Class definition
-  class World
-  {
-      public:
-         World ()
-         {
-             std::cout &lt;&lt; "Hello" &lt;&lt; std::endl;
+  class World // A class is a type defined by a programmer.
+  { // The class definition is inside the curly braces.
+      public: // Means that we have nothing to hide yet (data hiding).
+         World () // A Constructor is a piece of code that is to be executed everytime an object of this particular class is created.
+         {           //    |
+                     //    ----&gt; Always have the same name as the class itself.
+                     //    ----&gt; May take any arguments - that's why it has a set of parentheses.
+             std::cout &lt;&lt; "Hello!" &lt;&lt; std::endl; // ----&gt; the object std::cout is sent the string "Hello!"
+             // |                        |
+             // |                        ----&gt; end line (creates a new line).
+             // ----&gt; represents the standard output, presumably the screen of the computer, and it prints whatever is sent to it.
          }
-         ~World ()
-         {
-             std::cout &lt;&lt; "Good bye!" &lt;&lt; std::endl;
+         ~World () // A destructor always has the same name as the class but is preceeded with tilde (~).
+         {         // A piece of code that is executed every time an object of this class is destroyed.
+                   // Never takes any arguments.
+             std::cout &lt;&lt; "Good bye!" &lt;&lt; std::endl; // ----&gt; prints "Good bye!"
          }
-  };
+  }; // A class is delimited by a semi-colon.
 
 // Object definition --&gt; This is the central line of the program.
   World TheWorld; // --&gt; "TheWorld" is an instance of the class "World".
@@ -271,11 +278,24 @@
 
 <ul class="org-ul">
 <li><span class="underline">Global scope</span> is everything outside of curly braces.</li>
-<li>A <span class="underline">Class</span> is a <span class="underline">type</span> defined by a programmer.</li>
+<li>Top-down approach is the correct way of analyzing a program and creating it.</li>
 </ul>
+
+
 <p>
-~    |
-~     &#x2013;&#x2014;&gt; delimited by a semi-colon.
+Program flow:
+</p>
+<ol class="org-ol">
+<li>All global objects are constructed. The constructer executes it's instructions.</li>
+<li>The main routine is executed.</li>
+<li>All global objects are destroyed. The destructor is executed.</li>
+</ol>
+
+
+<p>
+Summary: We have introduced a class and an object. Think of a class as a blueprint for an object.
+It describes the object's behavior - in our case, what happens when the object is constructed
+and destroyed. Once you have a blue print, you can create objects that are based on it.
 </p>
 </div>
 </li>
@@ -286,7 +306,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: mk-fedora</p>
-<p class="date">Created: 2024-02-28 Wed 15:20</p>
+<p class="date">Created: 2024-02-28 Wed 16:17</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
