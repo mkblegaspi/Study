@@ -1,0 +1,44 @@
+* C++ in Action
+** Language
+*** Objects and Scopes
+**** Global Scope
+- Class definition
+- Object definition
+- Constructor
+- Destructor
+- Output stream
+- Include
+- Main
+
+
+#+begin_src c++
+  // Include statement
+  #include <iostream>
+
+  // Class definition
+    class World
+    {
+	public:
+	   World ()
+	   {
+	       std::cout << "Hello" << std::endl;
+	   }
+	   ~World ()
+	   {
+	       std::cout << "Good bye!" << std::endl;
+	   }
+    };
+
+  // Object definition --> This is the central line of the program.
+    World TheWorld; // --> "TheWorld" is an instance of the class "World".
+	       // |
+               // ----> A statement is delimited by a semi-colon (;).
+  // Main routine
+    void main ()
+    {
+	return 0;
+    }
+#+end_src
+
+
+- _Global scope_ is everything outside of curly braces. 
