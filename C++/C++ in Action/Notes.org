@@ -13,26 +13,33 @@
 
 #+begin_src c++
   // Include statement
-  #include <iostream>
-
+  #include <iostream> // Tells the compiler to find the file iostream and include it.
+  //           |
+  //           ----> part of the standard C++ library, not part of the language.
   // Class definition
-    class World
-    {
-	public:
-	   World ()
-	   {
-	       std::cout << "Hello" << std::endl;
+    class World // A class is a type defined by a programmer.
+    { // The class definition is inside the curly braces.
+	public: // Means that we have nothing to hide yet (data hiding).
+	   World () // A Constructor is a piece of code that is to be executed everytime an object of this particular class is created.
+	   {           //    |
+		       //    ----> Always have the same name as the class itself.
+		       //    ----> May take any arguments - that's why it has a set of parentheses.
+	       std::cout << "Hello!" << std::endl; // ----> the object std::cout is sent the string "Hello!"
+	       // |                        |
+	       // |                        ----> end line (creates a new line).
+	       // ----> represents the standard output, presumably the screen of the computer, and it prints whatever is sent to it.
 	   }
-	   ~World ()
-	   {
-	       std::cout << "Good bye!" << std::endl;
+	   ~World () // A destructor always has the same name as the class but is preceeded with tilde (~).
+	   {         // A piece of code that is executed every time an object of this class is destroyed.
+		     // Never takes any arguments.
+	       std::cout << "Good bye!" << std::endl; // ----> prints "Good bye!"
 	   }
-    };
+    }; // A class is delimited by a semi-colon.
 
   // Object definition --> This is the central line of the program.
     World TheWorld; // --> "TheWorld" is an instance of the class "World".
 	       // |
-               // ----> A statement is delimited by a semi-colon (;).
+	       // ----> A statement is delimited by a semi-colon (;).
   // Main routine
     void main ()
     {
@@ -41,4 +48,17 @@
 #+end_src
 
 
-- _Global scope_ is everything outside of curly braces. 
+- _Global scope_ is everything outside of curly braces.
+- Top-down approach is the correct way of analyzing a program and creating it.
+
+
+Program flow:
+1. All global objects are constructed. The constructer executes it's instructions.
+2. The main routine is executed.
+3. All global objects are destroyed. The destructor is executed.
+
+
+Summary: We have introduced a class and an object. Think of a class as a blueprint for an object.
+It describes the object's behavior - in our case, what happens when the object is constructed
+and destroyed. Once you have a blue print, you can create objects that are based on it.
+
