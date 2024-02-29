@@ -58,7 +58,130 @@ Program flow:
 3. All global objects are destroyed. The destructor is executed.
 
 
+- Building means compiling and linking.
+
+
 Summary: We have introduced a class and an object. Think of a class as a blueprint for an object.
 It describes the object's behavior - in our case, what happens when the object is constructed
 and destroyed. Once you have a blue print, you can create objects that are based on it.
 
+
+Note: One could think of main as the constructor of the global Main object. This is how
+truly object oriented languages work.
+
+
+**** Local Scope
+- Scope of main
+- Passing arguments to constructors
+- Interger type
+- Private data members
+- Initialization
+- Embedded local scopes
+- The for loop
+
+
+- Global scope is activated (ready to use, all objects constructed) before main is executed,
+  and deactivated (all objects destroyed) after main is exited.
+- Local scopes are delimited by braces (not always)
+  - Activated when the flow of the program enters it, and
+    deactivated when it leaves it.
+  - Objects in local scope are constructed whenever their definition is encountered,
+    and destroyed when the scope is exited.
+    - Such objects are called _automatic_ (because they are automatically created and destroyed),
+      or _stack objects_ (because they occupy memory that is allocated on the program's stack).
+
+
+#+begin_src c++
+  #include <iostream>
+
+  class World
+  {
+    public:
+    World (int i)
+    {
+      std::cout << "Hello from " << i << "." << std::endl;
+    }
+
+    ~World ()
+    {
+      std::cout << "Good bye." << std::cout;
+    }
+  };
+
+  World TheWorld (1);
+
+  int main ()
+    {
+      World myWorld (2);
+      std::cout << "Hello from main!" << std::endl;
+      return 0;
+    }
+#+end_src
+
+
+- std::cout accepts strings of characters and prints them as string
+  and it accepts integers and prints them as decimal numbers.
+- You can chain arguments to std::cout one after another.
+- An _object_ is something that has identity.
+- If possible, stick to /countable/ nouns in naming classes.
+
+
+#+begin_src c++
+  #include <iostream>
+
+  class World
+  {
+    public:
+    World (int id)
+      : _identifier (id)
+    {
+      std::cout << "Hello from " << _identifier << "." << std::endl;
+    }
+
+    ~World ()
+    {
+      std::cout << "Good bye from " << _identifier << "." << std::endl;
+    }
+
+    private:
+      const int _identifier;
+  };
+
+  World TheWorld (1);
+
+  int main ()
+    {
+      World myWorld (2);
+      for (int i = 3; i < 6; ++i)
+	{
+	  World aWorld (i);
+	}
+      World oneMoreWorld (6);
+      
+      return 0;
+    }
+#+end_src
+
+- The braces delimiting the scope may be omitted if the body of the loop
+  consists of a single statement.
+  #+begin_src c++
+    for (int i = 3; i < 6; ++i)
+      World aWorld (i);
+  #+end_src
+- The scope of a variable defined in the head of a loop (or the ~if~ statement)
+  is that of the loop itself.
+- Variables defined in the body of the loop are re-initialized on every iteration.
+- The ones defined in the head are initialized once, at the loop entry. However,
+  once you exit the loop, neither are accessible.
+- The compiler will make sure that nobody, except the class itself,
+  has access to *private members*.
+- The keyword ~const~ means that nobody can change the value of ~_identifier~ during the lifetime of the object.
+- The *preamble* to the constructor is the little window when we can (and have to)
+  initialize a ~const~ data member.
+
+
+Summary: Objects may have their own memory, or state. The state data members are preferably kept private.
+They are best initialized in the preamble to the constructor, so that the object is in a consistent state
+immediately after its birth. The "for loop" creates its own scope. This scope is entered an exited during
+every iteration. In fact, a matched pair of braces can be put anywhere within another scope, just to form
+a sub-scope.

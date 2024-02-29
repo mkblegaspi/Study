@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-28 Wed 16:17 -->
+<!-- 2024-02-29 Thu 15:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -200,11 +200,11 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbda9b56">1. C++ in Action</a>
+<li><a href="#org8ccfce0">1. C++ in Action</a>
 <ul>
-<li><a href="#org1a40e1b">1.1. Language</a>
+<li><a href="#org9975621">1.1. Language</a>
 <ul>
-<li><a href="#orga4e567a">1.1.1. Objects and Scopes</a></li>
+<li><a href="#org312cc91">1.1.1. Objects and Scopes</a></li>
 </ul>
 </li>
 </ul>
@@ -212,20 +212,20 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbda9b56" class="outline-2">
-<h2 id="orgbda9b56"><span class="section-number-2">1.</span> C++ in Action</h2>
+<div id="outline-container-org8ccfce0" class="outline-2">
+<h2 id="org8ccfce0"><span class="section-number-2">1.</span> C++ in Action</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org1a40e1b" class="outline-3">
-<h3 id="org1a40e1b"><span class="section-number-3">1.1.</span> Language</h3>
+<div id="outline-container-org9975621" class="outline-3">
+<h3 id="org9975621"><span class="section-number-3">1.1.</span> Language</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-orga4e567a" class="outline-4">
-<h4 id="orga4e567a"><span class="section-number-4">1.1.1.</span> Objects and Scopes</h4>
+<div id="outline-container-org312cc91" class="outline-4">
+<h4 id="org312cc91"><span class="section-number-4">1.1.1.</span> Objects and Scopes</h4>
 <div class="outline-text-4" id="text-1-1-1">
 </div>
 <ol class="org-ol">
-<li><a id="org02c7b23"></a>Global Scope<br />
+<li><a id="org62161ad"></a>Global Scope<br />
 <div class="outline-text-5" id="text-1-1-1-1">
 <ul class="org-ul">
 <li>Class definition</li>
@@ -292,10 +292,160 @@ Program flow:
 </ol>
 
 
+<ul class="org-ul">
+<li>Building means compiling and linking.</li>
+</ul>
+
+
 <p>
 Summary: We have introduced a class and an object. Think of a class as a blueprint for an object.
 It describes the object's behavior - in our case, what happens when the object is constructed
 and destroyed. Once you have a blue print, you can create objects that are based on it.
+</p>
+
+
+<p>
+Note: One could think of main as the constructor of the global Main object. This is how
+truly object oriented languages work.
+</p>
+</div>
+</li>
+
+
+<li><a id="orgc652659"></a>Local Scope<br />
+<div class="outline-text-5" id="text-1-1-1-2">
+<ul class="org-ul">
+<li>Scope of main</li>
+<li>Passing arguments to constructors</li>
+<li>Interger type</li>
+<li>Private data members</li>
+<li>Initialization</li>
+<li>Embedded local scopes</li>
+<li>The for loop</li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Global scope is activated (ready to use, all objects constructed) before main is executed,
+and deactivated (all objects destroyed) after main is exited.</li>
+<li>Local scopes are delimited by braces (not always)
+<ul class="org-ul">
+<li>Activated when the flow of the program enters it, and
+deactivated when it leaves it.</li>
+<li>Objects in local scope are constructed whenever their definition is encountered,
+and destroyed when the scope is exited.
+<ul class="org-ul">
+<li>Such objects are called <span class="underline">automatic</span> (because they are automatically created and destroyed),
+or <span class="underline">stack objects</span> (because they occupy memory that is allocated on the program's stack).</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-c++">#include &lt;iostream&gt;
+
+class World
+{
+  public:
+  World (int i)
+  {
+    std::cout &lt;&lt; "Hello from " &lt;&lt; i &lt;&lt; "." &lt;&lt; std::endl;
+  }
+
+  ~World ()
+  {
+    std::cout &lt;&lt; "Good bye." &lt;&lt; std::cout;
+  }
+};
+
+World TheWorld (1);
+
+int main ()
+  {
+    World myWorld (2);
+    std::cout &lt;&lt; "Hello from main!" &lt;&lt; std::endl;
+    return 0;
+  }
+</pre>
+</div>
+
+
+<ul class="org-ul">
+<li>std::cout accepts strings of characters and prints them as string
+and it accepts integers and prints them as decimal numbers.</li>
+<li>You can chain arguments to std::cout one after another.</li>
+<li>An <span class="underline">object</span> is something that has identity.</li>
+<li>If possible, stick to <i>countable</i> nouns in naming classes.</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-c++">#include &lt;iostream&gt;
+
+class World
+{
+  public:
+  World (int id)
+    : _identifier (id)
+  {
+    std::cout &lt;&lt; "Hello from " &lt;&lt; _identifier &lt;&lt; "." &lt;&lt; std::endl;
+  }
+
+  ~World ()
+  {
+    std::cout &lt;&lt; "Good bye from " &lt;&lt; _identifier &lt;&lt; "." &lt;&lt; std::endl;
+  }
+
+  private:
+    const int _identifier;
+};
+
+World TheWorld (1);
+
+int main ()
+  {
+    World myWorld (2);
+    for (int i = 3; i &lt; 6; ++i)
+      {
+        World aWorld (i);
+      }
+    World oneMoreWorld (6);
+
+    return 0;
+  }
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+The braces delimiting the scope may be omitted if the body of the loop
+consists of a single statement.
+</p>
+<div class="org-src-container">
+<pre class="src src-c++">for (int i = 3; i &lt; 6; ++i)
+  World aWorld (i);
+</pre>
+</div></li>
+<li>The scope of a variable defined in the head of a loop (or the <code>if</code> statement)
+is that of the loop itself.</li>
+<li>Variables defined in the body of the loop are re-initialized on every iteration.</li>
+<li>The ones defined in the head are initialized once, at the loop entry. However,
+once you exit the loop, neither are accessible.</li>
+<li>The compiler will make sure that nobody, except the class itself,
+has access to <b>private members</b>.</li>
+<li>The keyword <code>const</code> means that nobody can change the value of <code>_identifier</code> during the lifetime of the object.</li>
+<li>The <b>preamble</b> to the constructor is the little window when we can (and have to)
+initialize a <code>const</code> data member.</li>
+</ul>
+
+
+<p>
+Summary: Objects may have their own memory, or state. The state data members are preferably kept private.
+They are best initialized in the preamble to the constructor, so that the object is in a consistent state
+immediately after its birth. The "for loop" creates its own scope. This scope is entered an exited during
+every iteration. In fact, a matched pair of braces can be put anywhere within another scope, just to form
+a sub-scope.
 </p>
 </div>
 </li>
@@ -306,7 +456,7 @@ and destroyed. Once you have a blue print, you can create objects that are based
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: mk-fedora</p>
-<p class="date">Created: 2024-02-28 Wed 16:17</p>
+<p class="date">Created: 2024-02-29 Thu 15:16</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
