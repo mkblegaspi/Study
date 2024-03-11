@@ -185,3 +185,130 @@ They are best initialized in the preamble to the constructor, so that the object
 immediately after its birth. The "for loop" creates its own scope. This scope is entered an exited during
 every iteration. In fact, a matched pair of braces can be put anywhere within another scope, just to form
 a sub-scope.
+
+**** Embedded Objects
+- Embeddings
+- Initialization of embeddings
+- Order of construction/destruction
+
+
+#+begin_src C++
+  #include <iostream>
+  class Matter
+  {
+    public:
+    Matter (int id)
+    : _identifier (id)
+    {
+      std::cout << " Matter for " << _identifier << " created." << std::endl;
+    }
+
+    ~Matter ()
+    {
+      std::cout << " Matter in " << _identifier << " annihilated." << std::endl;
+    }
+
+    private:
+    const int _identifier;
+  };
+
+  class World
+  {
+    public:
+    World (int id)
+    : _identifier (id), _matter (_identifier) // initializing embeddings
+    {
+      std::cout << "Hello from world " << _identifier << "." << std::endl;
+    }
+
+    ~World ()
+    {
+      std::cout << "Good bye from world " << _identifier << "." << std::endl;
+    }
+
+    private:
+    const int _identifier;
+    const Matter _matter; // Embedded object of type Matter
+  };
+
+  World TheUniverse (1);
+
+  int main ()
+  {
+    World myWorld (2);
+    return 0;
+  }
+#+end_src
+
+- *Data members* are initialized in the order in which they appear in the class
+  definition.
+- Embedded object = has-a
+
+
+Summary: Objects of programmer defined types maybe embedded as data members in
+other classes. The constructors for the embeddings are called before the body
+of the object's constructor is executed (conceptually you may visualize them
+as being called in the preamble). If these constructors need arguments, they
+must be passed in the preamble. The order of construction is determined by the
+order of embeddings. The embeddings are destroyed in the reverse order of
+construction.
+
+
+
+**** Inheritance
+- Public Inheritance
+- Initialization of the base class
+- Order of construction/destruction
+- Type double
+
+
+#+begin_src C++
+      #include <iostream>
+
+      class CelestialBody
+      {
+      public:
+	CelestialBody (double mass)
+	  : _mass (mass)
+	{
+	  std::cout << "Creating celestial body of mass " << _mass << "." << std::endl;
+	}
+
+	~CelestialBody ()
+	{
+	  std::cout << "Destroying celestial body of mass " << _mass << "." << std::endl;
+	}
+
+      private:
+	const double _mass;
+    };
+
+    class Star: public CelestialBody // Star is a CelestialBody
+    {
+    public:
+      Star (double mass, double brightness)
+	: CelestialBody (mass), _brightness (brightness)
+      {
+	std::cout << "Creating a star of brightness " <<
+	  _brightness << "." << std::endl;
+      }
+
+      ~Star ()
+      {
+	std::cout << "Destroying a star of brightness " <<
+	  _brightness << "." << std::endl;
+      }
+
+    private:
+      const double _brightness;
+  };
+
+  int main ()
+    {
+      std::cout << "    Entering main." << std::endl;
+      Start aStar (1234.5, 0.1);
+      std::cout << "    Exiting main." << std::endl;
+
+      return 0;
+    }
+#+end_src
