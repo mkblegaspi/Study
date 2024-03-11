@@ -312,3 +312,52 @@ construction.
       return 0;
     }
 #+end_src
+
+
+- First the base class id fully constructed, then the derived class.
+- The order in the preamble is meaninglless, and if there are no explicit initializations
+  the whole thing may be omitted.
+
+
+**** Member functions and interfaces
+- Input stream
+- Member functions (methods)
+- Return values
+- Interfaces
+- Functions returning void
+
+
+- *Methods* - bahavior exposed via member function
+
+
+#+begin_src C++
+  #include <iostream>
+
+  class InputNum
+  {
+    public:
+      InputNum ()
+      {
+	std::cout << "Enter number : ";
+	std::cin >> _num;
+      }
+
+      int GetValue () const
+      {
+	return _num;
+      }
+
+    private:
+      int _num;
+  };
+
+  int main ()
+  {
+    InputNum num;
+
+    std::cout << "The value is " << num.GetValue () << std::endl;
+    return 0;
+  }
+#+end_src
+
+
