@@ -361,3 +361,13 @@ construction.
 #+end_src
 
 
+Summary: The set of public member functions defines the interface
+to the object of the given class. What is even more important, a well
+designed and well implemented object is able to fulfill a well defined
+contract. Programming in C++ is about writing contracts and fulfilling
+them. An interface can, and should, be designed in such a way that the
+client's part of the contract is simple and well defined. The object
+may even be able to protect itself from sloppy clients wo break their
+part of the contract.
+
+
