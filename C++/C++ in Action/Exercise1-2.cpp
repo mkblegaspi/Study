@@ -20,7 +20,7 @@ private:
 
 int main ()
 {
-  for (int i = 1; i < 2; i++)
+  for (int i = 1; i <= 2; ++i)
     {
       World myWorld(i);
     }
